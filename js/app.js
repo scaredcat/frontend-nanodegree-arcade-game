@@ -48,7 +48,7 @@ Enemy.prototype.reset = function() {
 
     //start on a column betwen 1-3 from the top
     this.y = (Math.floor((Math.random()*10))%3 + 1) * COLUMN_HEIGHT - ROW_CENTER_OFFSET;
-}
+};
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
@@ -78,14 +78,14 @@ var Player = function() {
 Player.prototype.resetPosition = function() {
     this.x = 2 * COLUMN_WIDTH;
     this.y = COLUMNS * COLUMN_HEIGHT - ROW_CENTER_OFFSET;
-}
+};
 
 //reset the position and the sprite
 Player.prototype.resetScore = function() {
     this.resetPosition();
     this.currentSprite = 0;
     this.sprite = this.sprites[this.currentSprite];
-}
+};
 
 //nothing happens to the player based on gametime, empty update function
 Player.prototype.update = function(dt) {};
@@ -103,7 +103,11 @@ Player.prototype.handleInput = function(key) {
         case 'left': this.x = (this.x - COLUMN_WIDTH < left)? this.x : this.x - COLUMN_WIDTH; break;
         case 'right': this.x = (this.x + COLUMN_WIDTH > right)? this.x : this.x + COLUMN_WIDTH; break;
     }
+};
 
+
+Player.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     // the player has made it to the water block
     if(this.y < 20) {
         //level up sprites
@@ -114,11 +118,6 @@ Player.prototype.handleInput = function(key) {
         this.resetPosition();
         this.sprite = this.sprites[this.currentSprite];
     }
-}
-
-
-Player.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
 // Now instantiate your objects.
